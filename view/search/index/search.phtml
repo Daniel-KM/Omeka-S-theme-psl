@@ -40,7 +40,7 @@
 $translate = $this->plugin('translate');
 $this->htmlElement('body')->appendAttribute('class', 'search');
 $this->headLink()->appendStylesheet($this->assetUrl('css/search.css', 'Search'));
-$this->headScript()->appendFile($this->assetUrl('js/search.js', 'Search'));
+$this->headScript()->appendFile($this->assetUrl('js/search.js', 'Search'), 'text/javascript', ['defer' => 'defer']);
 $this->headTitle($translate('Search'), \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND);
 ?>
 

@@ -16,7 +16,7 @@ if (isset($itemSet)):
 endif;
 $itemSetShow = isset($itemSet);
 $this->headLink()->appendStylesheet($this->assetUrl('css/search.css', 'Search'));
-$this->headScript()->appendFile($this->assetUrl('js/search.js', 'Search'));
+$this->headScript()->appendFile($this->assetUrl('js/search.js', 'Search'), 'text/javascript', ['defer' => 'defer']);
 $totalCount = $this->pagination()->getPaginator()->getTotalCount();
 $sortHeadings = [
     [
