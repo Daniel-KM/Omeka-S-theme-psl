@@ -15,18 +15,20 @@ $translate = $this->plugin('translate');
 // Avoid to set multiple front images in case of multiple Browse preview".
 global $firstBlockForHome;
 if (!$firstBlockForHome):
-$firstBlockForHome = true;
+    $firstBlockForHome = true;
 
-// The search form needs to be wrapped on home page, so quick set a variable to
-// check it in layout. This is simpler than a check of the home page url or route.
-$this->getHelperPluginManager()->get('view_model')->getRoot()->setVariable('isHomePage', true);
-$this->htmlElement('body')->appendAttribute('class', 'home');
+    // The search form needs to be wrapped on home page, so quick set a variable to
+    // check it in layout. This is simpler than a check of the home page url or route.
+    $this->getHelperPluginManager()->get('view_model')->getRoot()->setVariable('isHomePage', true);
+    $this->htmlElement('body')->appendAttribute('class', 'home');
 
-$this->FrontPageImage('#search-form-wrapper');
+    $this->FrontPageImage('#search-form-wrapper');
+endif;
+
 
 if (count($resources)):
-
 ?>
+
 <div class="preview-block">
     <header>
         <?php if ($heading): ?>
