@@ -80,6 +80,10 @@ $this->headTitle($translate('Search'), \Zend\View\Helper\Placeholder\Container\A
                     'sortOptions' => $sortOptions,
                 ]) ?>
 
+            <?php elseif (empty($query)): ?>
+
+                <div class="noresults"><?= $translate('Fill a query and get results.') ?></div>
+
             <?php else: ?>
 
                 <div class="noresults"><?php echo $translate('Your query returned no results'); ?></div>
