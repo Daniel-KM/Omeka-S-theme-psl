@@ -132,8 +132,7 @@ $(document).ready(function() {
 
     var sortBy = function(sort_by, sort_order) {
         var params = objectFromQueryString(document.location.search);
-        params['sort_by'] = sort_by;
-        params['sort_order'] = sort_order;
+        params['sort'] = sort_by + ' ' + sort_order;
         window.location.search = '?' + queryStringFromObject(params);
     };
 
