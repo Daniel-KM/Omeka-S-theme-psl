@@ -10,6 +10,7 @@
 // standard page as home page.
 
 $translate = $this->plugin('translate');
+
 // The search form needs to be wrapped on home page, so quick set a variable to
 // check it in layout. This is simpler than a check of the home page url or route.
 $this->getHelperPluginManager()->get('view_model')->getRoot()->setVariable('isHomePage', true);
