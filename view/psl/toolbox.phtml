@@ -1,10 +1,17 @@
 <?php
+/**
+ * @var \Zend\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
+ */
+
 $translate = $this->plugin('translate');
+
+$this->headScript()->appendFile($this->assetUrl('js/custom.js'), 'text/javascript', ['defer' => 'defer']);
+
+$hasBasket = $this->getHelperPluginManager()->has('updateBasketLink');
+$ark = $this->getHelperPluginManager()->has('ark') ? $this->ark($resource)->url(['force_canonical' => true], false): null;
+$isMedia = $resource->resourceName() === 'media';
 ?>
-<?php $this->headScript()->appendFile($this->assetUrl('js/custom.js'), 'text/javascript', ['defer' => 'defer']); ?>
-<?php $hasBasket = $this->getHelperPluginManager()->has('updateBasketLink'); ?>
-<?php $ark = $this->getHelperPluginManager()->has('ark') ? $this->ark($resource)->getAbsoluteUrl(): null; ?>
-<?php $isMedia = $resource->resourceName() === 'media'; ?>
 
 <div id="psl-toolbox">
     <ul>
