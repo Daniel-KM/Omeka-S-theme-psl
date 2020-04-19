@@ -43,7 +43,10 @@ $ark = $this->getHelperPluginManager()->has('ark') ? $this->plugin('ark') : fals
                     <?php endif; ?>
                     <?php
                     if ($ark && $term === 'dcterms:identifier' && strpos($value, 'ark:/') === 0):
-                        $url = $ark()->getAbsoluteUrl($value->resource());
+                        $ark = $this->getHelperPluginManager()->get('ark');
+                        $url = method_exists($ark, 'getAbsoluteUrl')
+                            ? $ark($value->resource())->getAbsoluteUrl() // Deprecated since 3.5.3 and removed in 3.5.7.
+                            : $ark($value->resource())->url(['force_canonical' => true], false);
                         echo $this->hyperlink($value, $url);
                     else:
                         echo $value->asHtml();

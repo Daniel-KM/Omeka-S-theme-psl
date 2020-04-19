@@ -4,12 +4,22 @@
  * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
  */
 
-$translate = $this->plugin('translate');
+$plugins = $this->getHelperPluginManager();
+$translate = $plugins->get('translate');
 
 $this->headScript()->appendFile($this->assetUrl('js/custom.js'), 'text/javascript', ['defer' => 'defer']);
 
-$hasBasket = $this->getHelperPluginManager()->has('updateBasketLink');
-$ark = $this->getHelperPluginManager()->has('ark') ? $this->ark($resource)->url(['force_canonical' => true], false): null;
+$hasBasket = $plugins->has('updateBasketLink');
+
+if ($plugins->has('ark')):
+    $ark = $plugins->get('ark');
+    $ark = method_exists($ark, 'getAbsoluteUrl')
+        ? $ark($resource)->getAbsoluteUrl() // Deprecated since 3.5.3 and removed in 3.5.7.
+        : $ark($resource)->url(['force_canonical' => true], false);
+else:
+    $ark = null;
+endif;
+
 $isMedia = $resource->resourceName() === 'media';
 ?>
 
