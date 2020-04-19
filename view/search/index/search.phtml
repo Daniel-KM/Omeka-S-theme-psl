@@ -30,14 +30,20 @@
 /**
  * @var \Zend\View\Renderer\PhpRenderer $this
  * @var \Omeka\Api\Representation\SiteRepresentation $site
+ * @var \Search\Api\Representation\SearchPageRepresentation $searchPage
  * @var \Search\Query $query
  * @var \Search\Response $response
  * @var array $sortOptions
- * @var array $facets
- * @var bool $isPartial
+ * For block layout:
+ * @var string $heading Unused in current template.
+ * @var bool $skipFormAction Remove action of the form, so it uses current page.
  */
 
 $translate = $this->plugin('translate');
+
+$isPartial = !$site;
+$skipFormAction = !empty($skipFormAction);
+
 $this->htmlElement('body')->appendAttribute('class', 'search');
 $this->headLink()->appendStylesheet($this->assetUrl('css/search.css', 'Search'));
 $this->headScript()->appendFile($this->assetUrl('js/search.js', 'Search'), 'text/javascript', ['defer' => 'defer']);
@@ -91,7 +97,7 @@ $this->headTitle($translate('Search'), \Zend\View\Helper\Placeholder\Container\A
             <?php endif; ?>
         </div>
 
-        <?= $this->partial('search/facets', ['facets' => $facets]) ?>
+        <?= $this->partial('search/facets', ['searchPage' => $searchPage, 'query' => $query, 'response' => $response]) ?>
     </div>
 <?php endif; ?>
 <?php if (empty($isPartial)): ?>
