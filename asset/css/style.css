@@ -63,7 +63,7 @@
         background-image: url('../img/pin-full.svg');
     }
     .user-links > * {
-        font-size: 1px;
+        font-size: 14px;
     }
     a.show_basket::before {
         content: '';
