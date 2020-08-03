@@ -27,10 +27,12 @@
     a:visited {
         color: #4386e2;
     }
+    button.update_selection,
     button.update_basket {
         border: none;
         background: none;
     }
+    div.remove_selection,
     div.remove_basket {
         display: block;
         background: url('../img/remove_basket.png') no-repeat;
@@ -41,12 +43,15 @@
         /* Equal to width of new image */
         padding-left: 8px;
     }
+    .selection-update,
     .basket-update {
         line-height: 16px;
         padding: 0;
         border: 0 none;
         background-color: transparent;
+        cursor: pointer;
     }
+    .selection-update::before,
     .basket-update::before {
         content: '';
         display: inline-block;
@@ -56,15 +61,22 @@
         /* Height of new image */
         height: 16px;
     }
+    .selection-update.unselected::before,
+    .selection-add::before,
+    .basket-update.unselected::before,
     .basket-add::before {
         background-image: url('../img/pin.svg');
     }
+    .selection-update.selected::before,
+    .selection-delete::before,
+    .basket-update.selected::before,
     .basket-delete::before {
         background-image: url('../img/pin-full.svg');
     }
     .user-links > * {
         font-size: 14px;
     }
+    a.show_selection::before,
     a.show_basket::before {
         content: '';
         display: inline-block;
@@ -844,6 +856,7 @@
         margin: 0;
         font-weight: normal;
     }
+    .resource-list .resource h4 button.selection-update,
     .resource-list .resource h4 button.basket-update {
         margin-right: 0.25em;
     }
@@ -975,10 +988,12 @@
         margin-bottom: 1em;
         margin-left: 1em;
     }
+    .selection-header,
     .basket-header {
         display: flex;
         justify-content: space-between;
     }
+    .selection-header h2,
     .basket-header h2 {
         margin: 0;
         padding: 0.5em 1em;
@@ -988,6 +1003,7 @@
         font-weight: 600;
         font-size: 22px;
     }
+    .selection-sort,
     .basket-sort {
         flex-grow: 1;
         display: flex;
@@ -996,10 +1012,12 @@
         border-bottom: 2px solid rgb(83, 100, 123);
         align-items: center;
     }
+    .selection-sort > span,
     .basket-sort > span {
         margin-right: 2em;
         color: rgb(83, 100, 123);
     }
+    .selection-sort .sort-field,
     .basket-sort .sort-field {
         display: flex;
         align-items: center;
@@ -1007,20 +1025,25 @@
         min-height: 40px;
         cursor: pointer;
     }
+    .selection-sort .sort-directions,
     .basket-sort .sort-directions {
         margin-left: 0.5em;
         min-width: 13px;
     }
+    .selection-sort .sort-direction,
     .basket-sort .sort-direction {
         cursor: pointer;
         display: none;
     }
+    .selection-sort .sort-direction:hover,
     .basket-sort .sort-direction:hover {
         background-color: 1px solid #efefef;
     }
+    .selection-sort .sort-field:hover .sort-direction,
     .basket-sort .sort-field:hover .sort-direction {
         display: block;
     }
+    .selection-sort .sort-direction.sort-active,
     .basket-sort .sort-direction.sort-active {
         display: block;
     }
@@ -1057,9 +1080,12 @@
         background-size: contain;
         background-repeat: no-repeat;
     }
+    #psl-toolbox ul li.selection > button::before,
     #psl-toolbox ul li.basket > button::before {
         background-image: url(../img/pin-blue.svg);
     }
+    #psl-toolbox ul li.selection > button.selection-update.selected::before,
+    #psl-toolbox ul li.basket > button.basket-update.selected::before,
     #psl-toolbox ul li.basket > button.basket-delete::before {
         background-image: url(../img/pin-full-blue.svg);
     }
@@ -1072,9 +1098,12 @@
     #psl-toolbox ul li:hover > * {
         background-color: rgb(40, 83, 141);
     }
+    #psl-toolbox ul li.selection:hover > button::before,
     #psl-toolbox ul li.basket:hover > button::before {
         background-image: url(../img/pin-white.svg);
     }
+    #psl-toolbox ul li.selection:hover > button.selection-updated.selected::before,
+    #psl-toolbox ul li.basket:hover > button.basket-updated.selected::before,
     #psl-toolbox ul li.basket:hover > button.basket-delete::before {
         background-image: url(../img/pin-full-white.svg);
     }

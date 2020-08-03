@@ -9,7 +9,8 @@ $translate = $plugins->get('translate');
 
 $this->headScript()->appendFile($this->assetUrl('js/custom.js'), 'text/javascript', ['defer' => 'defer']);
 
-$hasBasket = $plugins->has('updateBasketLink');
+$hasSelection = $plugins->has('updateSelectionLink');
+$hasBasket = !$hasSelection && $plugins->has('updateBasketLink');
 
 if ($plugins->has('ark')):
     $ark = $plugins->get('ark');
@@ -25,7 +26,9 @@ $isMedia = $resource->resourceName() === 'media';
 
 <div id="psl-toolbox">
     <ul>
-        <?php if ($hasBasket): ?>
+        <?php if ($hasSelection): ?>
+        <li class="selection"><?php echo $this->updateSelectionLink($resource); ?></li>
+        <?php elseif ($hasBasket): ?>
         <li class="basket"><?php echo $this->updateBasketLink($resource); ?></li>
         <?php endif; ?>
         <?php if ($ark): ?>

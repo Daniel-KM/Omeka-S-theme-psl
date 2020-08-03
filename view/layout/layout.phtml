@@ -4,8 +4,12 @@
  * @var \Omeka\Api\Representation\SiteRepresentation $site
  */
 
-$translate = $this->plugin('translate');
-$assetUrl = $this->plugin('assetUrl');
+$plugins = $this->getHelperPluginManager();
+$translate = $plugins->get('translate');
+$assetUrl = $plugins->get('assetUrl');
+
+$hasSelection = $plugins->has('updateSelectionLink');
+$hasBasket = !$hasSelection && $plugins->has('updateBasketLink');
 
 $this->htmlElement('html')->setAttribute('lang', $this->lang());
 $this->headMeta()->setCharset('utf-8');
@@ -20,7 +24,15 @@ $this->headLink()
     ->appendStylesheet($assetUrl('css/style.css'));
 $this->headScript()
     ->prependFile($assetUrl('js/global.js', 'Omeka'), 'text/javascript', ['defer' => 'defer'])
-    ->prependFile($assetUrl('vendor/jquery/jquery.min.js', 'Omeka'))
+    ->prependFile($assetUrl('vendor/jquery/jquery.min.js', 'Omeka'));
+if ($hasSelection):
+    $this->headScript()
+        ->appendFile($assetUrl('js/selection.js', 'Selection'), 'text/javascript', ['defer' => 'defer']);
+elseif ($hasBasket):
+    $this->headScript()
+        ->appendFile($assetUrl('js/basket.js', 'Basket'), 'text/javascript', ['defer' => 'defer']);
+endif;
+$this->headScript()
     ->appendFile($assetUrl('js/custom.js'), 'text/javascript', ['defer' => 'defer']);
 $userBar = $this->userBar();
 

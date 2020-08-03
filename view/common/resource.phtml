@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright BibLibre, 2016
- * Copyright Daniel Berthereau, 2017
+ * Copyright Daniel Berthereau, 2017-2020
  *
  * This software is governed by the CeCILL license under French law and abiding
  * by the rules of distribution of free software.  You can use, modify and/ or
@@ -33,12 +33,14 @@
  * @var string $tag
  */
 
-$translate = $this->plugin('translate');
-$hyperlink = $this->plugin('hyperlink');
+$plugins = $this->getHelperPluginManager();
+$translate = $plugins->get('translate');
+$hyperlink = $plugins->get('hyperlink');
 // The controller name is used to simplify compatibility with default themes (javascript and css that use default classes).
 $resourceName = $resource->getControllerName();
 $searchMainPage = $this->siteSetting('search_main_page');
-$hasBasket = $this->getHelperPluginManager()->has('updateBasketLink');
+$hasSelection = $plugins->has('updateSelectionLink');
+$hasBasket = !$hasSelection && $plugins->has('updateBasketLink');
 
 if ($resourceName === 'item-set') {
     $resourceUrl = $searchMainPage
@@ -61,7 +63,9 @@ if ($resourceName === 'item-set') {
     </div>
     <div class="resource-metadata">
         <h4>
-            <?php if ($hasBasket && in_array($resourceName, ['item', 'media'])): ?>
+            <?php if ($hasSelection && in_array($resourceName, ['item', 'media'])): ?>
+                <?php echo $this->updateSelectionLink($resource); ?>
+            <?php elseif ($hasBasket && in_array($resourceName, ['item', 'media'])): ?>
                 <?php echo $this->updateBasketLink($resource); ?>
             <?php endif; ?>
             <?php echo $hyperlink($resource->value($headingTerm, ['default' => $translate('[Untitled]')]), $resourceUrl); ?>
