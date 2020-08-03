@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var \Zend\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
+ * @var \Basket\Api\Representation\BasketItemRepresentation|bool $basketItem
+ * @var string $url
+ * and options passed from the caller.
+ */
+
+$translate = $this->plugin('translate');
+
+if (empty($basketItem)):
+    $text = $translate('Add to basket');
+    $class = 'basket-add btn-primary';
+else:
+    $text = $translate('Remove from basket');
+    $class = 'basket-delete btn-danger';
+endif;
+?>
+
+<button class="basket-update <?= $class ?>" title="<?= $text ?>" data-id="<?= $resource->id() ?>" data-url="<?= $url ?>">
+</button>
