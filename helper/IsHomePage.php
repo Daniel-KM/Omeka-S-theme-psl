@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace OmekaTheme\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
@@ -7,32 +8,31 @@ class IsHomePage extends AbstractHelper
 {
     /**
      * Check if the current page is the home page (first page in main menu).
-     *
-     * @return bool
      */
-    public function __invoke()
+    public function __invoke(): bool
     {
         $site = $this->currentSite();
+
         if (empty($site)) {
             return false;
         }
 
         $view = $this->getView();
+        $urlHelper = $view->plugin('url');
 
         // Check the alias of the root of Omeka S with rerouting.
         if ($this->isCurrentUrl($view->basePath())) {
             return true;
         }
 
-        // Since 1.4, there is a site setting for home page.
-        if (version_compare(\Omeka\Module::VERSION, '1.4.0', '>=')) {
-            $homepage = $site->homepage();
-            if ($homepage) {
-                $params = $view->params()->fromRoute();
-                return $params['__CONTROLLER__'] === 'Page'
-                    && $homepage->id() === $view->api()
-                        ->read('site_pages', ['site' => $site->id(), 'slug' => $params['page-slug']])
-                        ->getContent()->id();
+        $homepage = $site->homepage();
+        if ($homepage) {
+            $url = $urlHelper('site/page', [
+                'site-slug' => $site->slug(),
+                'page-slug' => $homepage->slug(),
+            ]);
+            if ($this->isCurrentUrl($url)) {
+                return true;
             }
         }
 
@@ -40,18 +40,17 @@ class IsHomePage extends AbstractHelper
         $linkedPages = $site->linkedPages();
         if ($linkedPages) {
             $firstPage = current($linkedPages);
-            $url = $view->url('site/page', [
+            $url = $urlHelper('site/page', [
                  'site-slug' => $site->slug(),
                  'page-slug' => $firstPage->slug(),
              ]);
-
             if ($this->isCurrentUrl($url)) {
                 return true;
             }
         }
 
         // Check the root of the site.
-        $url = $view->url('site', ['site-slug' => $site->slug()]);
+        $url = $urlHelper('site', ['site-slug' => $site->slug()]);
         if ($this->isCurrentUrl($url)) {
             return true;
         }
@@ -64,10 +63,10 @@ class IsHomePage extends AbstractHelper
      *
      * Upgrade of a method of Omeka Classic / globals.php.
      *
-     * @param string $url Relative or absolute
+     * @param string $url May be relative or absolute
      * @return bool
      */
-    protected function isCurrentUrl($url)
+    protected function isCurrentUrl(string $url): bool
     {
         $view = $this->getView();
         $currentUrl = $this->currentUrl();
@@ -89,25 +88,21 @@ class IsHomePage extends AbstractHelper
 
     /**
      * Get the current URL.
-     *
-     * @return string
      */
-    protected function currentUrl($absolute = false)
+    protected function currentUrl($absolute = false): string
     {
         return $absolute
-             ? $this->getView()->serverUrl(true)
-             : $this->getView()->url(null, [], true);
+             ? $this->view->serverUrl(true)
+             : $this->view->url(null, [], true);
     }
 
     /**
-     * @return \Omeka\Api\Representation\SiteRepresentation
+     * Get the current site.
      */
-    protected function currentSite()
+    protected function currentSite(): ?\Omeka\Api\Representation\SiteRepresentation
     {
-        return $this->getView()
-            ->getHelperPluginManager()
-            ->get('Laminas\View\Helper\ViewModel')
-            ->getRoot()
-            ->getVariable('site');
+        return isset($this->view->site)
+            ? $this->view->site
+            : $this->view->getHelperPluginManager()->get('Laminas\View\Helper\ViewModel')->getRoot()->getVariable('site');
     }
 }

@@ -7,12 +7,10 @@ class CurrentSite extends AbstractHelper
 {
     /**
      * Get the current site from the view.
-     *
-     * @return \Omeka\Api\Representation\SiteRepresentation|null
      */
-    public function __invoke()
+    public function __invoke(): ?\Omeka\Api\Representation\SiteRepresentation
     {
-        return $this->getView()
+        return $this->view->site ?? $this->view
              ->getHelperPluginManager()
              ->get('Laminas\View\Helper\ViewModel')
              ->getRoot()
