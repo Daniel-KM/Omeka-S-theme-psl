@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Daniel-KM/Omeka-S-theme-psl.git"
+    "url": "git+https://gitlab.com/Daniel-KM/Omeka-S-theme-psl.git"
   },
   "keywords": [
     "omeka-s",
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/biblibre/omeka-s-theme-psl/issues"
   },
-  "homepage": "https://github.com/Daniel-KM/Omeka-S-theme-psl#readme",
+  "homepage": "https://gitlab.com/Daniel-KM/Omeka-S-theme-psl#readme",
   "devDependencies": {
     "autoprefixer": "^9.6.1",
     "gulp": "^4.0.2",
