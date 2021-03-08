@@ -68,8 +68,8 @@ $translate = $this->plugin('translate');
         $resources[$resource->resourceName()][] = $resource;
     }
 
-    $items = isset($resources['items']) ? $resources['items'] : [];
-    $media = isset($resources['media']) ? $resources['media'] : [];
+    $items = $resources['items'] ?? [];
+    $media = $resources['media'] ?? [];
 ?>
 
 <?php if (!empty($items)): ?>

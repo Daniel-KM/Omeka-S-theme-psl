@@ -2,7 +2,7 @@
     <span class="sort-label"><?php echo $title; ?></span>
     <div class="sort-directions">
         <?php $params = $this->params()->fromQuery(); ?>
-        <?php foreach(['asc', 'desc'] as $direction): ?>
+        <?php foreach (['asc', 'desc'] as $direction): ?>
             <?php $active = isset($params['sort_by']) && isset($params['sort_order']) && $params['sort_by'] === $sort_by && $params['sort_order'] === $direction; ?>
             <div class="sort-direction sort-<?php echo $direction; ?> <?php echo $active ? 'sort-active' : ''; ?>" data-sort-by="<?php echo $sort_by; ?>" data-sort-order="<?php echo $direction; ?>">
                 <img src="<?php echo $this->assetUrl("img/sort-$direction.svg"); ?>"/>

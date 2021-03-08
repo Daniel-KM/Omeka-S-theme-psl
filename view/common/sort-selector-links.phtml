@@ -6,7 +6,7 @@ $escape = $this->plugin('escapeHtml');
 <div class="browse-sort">
     <span><?php echo $translate('Sort mode'); ?></span>
     <?php // SortSelector takes sortByHeading and outputs it as sortBy. ?>
-    <?php foreach($sortBy as $sortByHeading): ?>
+    <?php foreach ($sortBy as $sortByHeading): ?>
         <?php
         $query = $currentQuery;
         $isActive = $sortByQuery === $sortByHeading['value'];
