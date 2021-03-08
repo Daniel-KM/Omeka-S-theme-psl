@@ -2,7 +2,7 @@
 /**
  * @var \Laminas\View\Renderer\PhpRenderer $this
  * @var \Omeka\Api\Representation\AbstractResourceEntityRepresentation $resource
- * @var bool $selectionItem
+ * @var bool $selectionResource
  * @var string $url
  * and options passed from the caller.
  */
@@ -11,7 +11,7 @@ $translate = $this->plugin('translate');
 
 $textSelect['unselected'] = $translate('Add to selection');
 $textSelect['selected'] = $translate('Remove from selection');
-$class = empty($selectionItem) ? 'unselected' : 'selected';
+$class = empty($selectionResource) ? 'unselected' : 'selected';
 $text = $textSelect[$class];
 ?>
 

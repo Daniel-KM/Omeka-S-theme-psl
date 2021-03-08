@@ -28,7 +28,7 @@ $assetUrl = $this->plugin('assetUrl');
     $p = $currentPage + 1;
     $count = 0;
     while ($p <= $pageCount && $count < 4) {
-        array_push($pages, $p);
+        $pages[] = $p;
         ++$count;
         ++$p;
     }
