@@ -28,7 +28,7 @@
  */
 
 /**
- * @var \Zend\View\Renderer\PhpRenderer $this
+ * @var \Laminas\View\Renderer\PhpRenderer $this
  * @var \Omeka\Api\Representation\SiteRepresentation $site
  * @var \Search\Api\Representation\SearchPageRepresentation $searchPage
  * @var \Search\Query $query
@@ -47,7 +47,7 @@ $skipFormAction = !empty($skipFormAction);
 $this->htmlElement('body')->appendAttribute('class', 'search');
 $this->headLink()->appendStylesheet($this->assetUrl('css/search.css', 'Search'));
 $this->headScript()->appendFile($this->assetUrl('js/search.js', 'Search'), 'text/javascript', ['defer' => 'defer']);
-$this->headTitle($translate('Search'), \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND);
+$this->headTitle($translate('Search'), \Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND);
 ?>
 
 <?php if (empty($isPartial)): ?>

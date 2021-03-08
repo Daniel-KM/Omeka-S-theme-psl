@@ -1,7 +1,7 @@
 <?php
 namespace OmekaTheme\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class IsHomePage extends AbstractHelper
 {
@@ -106,7 +106,7 @@ class IsHomePage extends AbstractHelper
     {
         return $this->getView()
             ->getHelperPluginManager()
-            ->get('Zend\View\Helper\ViewModel')
+            ->get('Laminas\View\Helper\ViewModel')
             ->getRoot()
             ->getVariable('site');
     }

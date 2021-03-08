@@ -1,7 +1,7 @@
 <?php
 namespace OmekaTheme\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class SearchingForm extends AbstractHelper
 {
